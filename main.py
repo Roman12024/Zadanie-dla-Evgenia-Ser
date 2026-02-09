@@ -13,11 +13,6 @@ if __name__ == '__main__':
 
     drone_version = tl_drone.get_sdk_version()
     print("Версия дрона: {0}".format(drone_version))
-
-    tl_flight = tl_drone.flight
-    tl_flight.takeoff().wait_for_completed()
-    tl_flight.land().wait_for_completed()
-
     tl_camera = tl_drone.camera
     tl_camera.start_video_stream(display=False)
     tl_camera.set_fps("high")
@@ -29,5 +24,16 @@ if __name__ == '__main__':
         cv2.waitKey(1)
     cv2.destroyAllWindows()
     tl_camera.stop_video_stream()
+
+    tl_flight = tl_drone.flight
+    tl_flight.takeoff().wait_for_completed()
+    tl_flight.up(distance=20).wait_for_completed()
+    tl_flight.forward(distance=100).wait_for_completed()
+    tl_flight.right(distance=100).wait_for_completed()
+    tl_flight.backward(distance=100).wait_for_completed()
+    tl_flight.left(distance=100).wait_for_completed()
+    tl_flight.down(distance=20).wait_for_completed()
+    tl_flight.land().wait_for_completed()
+
 
     tl_drone.close()
